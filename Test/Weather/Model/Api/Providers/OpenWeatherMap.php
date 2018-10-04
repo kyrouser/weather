@@ -69,12 +69,6 @@ class OpenWeatherMap extends AbstractProvider
      */
     public function parse(CurrentWeather $currentWeather, $parseTo = 'string')
     {
-
-        echo '<pre>';
-        print_r($currentWeather);
-        echo '</pre>';
-
-
         $parsed = '';
         switch ($parseTo) {
             case 'string':
