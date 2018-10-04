@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Test\Weather\Api\Data\WeatherInterface" type="Test\Weather\Model\Weather" />
+    <preference for="Test\Weather\Api\WeatherRepositoryInterface" type="Test\Weather\Model\WeatherRepository" />
+    <preference for="Test\Weather\Api\Data\WeatherSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+</config>

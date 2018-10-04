@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="test_weather" translate="label" sortOrder="1000">
+            <label>Test Modules</label>
+        </tab>
+        <section id="weather" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Weather Test Module</label>
+            <tab>test_weather</tab>
+            <resource>Test_Weather::weather_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cron_enable" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="api" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>API Settings</label>
+                <field id="provider" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Provider</label>
+                    <source_model>Test\Weather\Model\Source\ApiProviders</source_model>
+                    <comment>Choose provider of the weather api</comment>
+                </field>
+                <field id="city" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>City</label>
+                    <comment>Select city for which you want to save the weather data</comment>
+                </field>
+            </group>
+            <group id="open_weather_map" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Open Weather Map API Settings</label>
+                <field id="api_key" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Api Key</label>
+                    <comment>Insert API Key here</comment>
+                </field>
+                <field id="unit" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Provider</label>
+                    <source_model>Test\Weather\Model\Source\Unit</source_model>
+                    <comment>Choose unit type to use by the OWM api</comment>
+                </field>
+                <field id="language" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Language</label>
+                    <source_model>Test\Weather\Model\Source\Language</source_model>
+                    <comment>Choose language to use by the OWM api</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

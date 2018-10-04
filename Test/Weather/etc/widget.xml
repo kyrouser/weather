@@ -1,0 +1,14 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Test\Weather\Block\Widget\Weather" id="test_weather_weather">
+        <label>Weather</label>
+        <description>Weather Test Widget</description>
+        <parameters>
+            <parameter name="text_before_weather" visible="true" xsi:type="text" sort_order="10">
+                <label translate="true">Text before weather</label>
+            </parameter>
+            <parameter name="text_after_weather" visible="true" xsi:type="text" sort_order="20">
+                <label translate="true">Text after weather</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,7 @@
+<?php /** @var \Test\Weather\Block\Widget\Weather $block */ ?>
+<?php $config = $this->helper('Test\Weather\Helper\Config'); ?>
+<?php if ($config->isWeatherModuleEnabled()): ?>
+<div>
+    <?php echo $block->getFullText(); ?>
+</div>
+<?php endif; ?>
