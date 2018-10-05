@@ -62,13 +62,19 @@ class OpenWeatherMap extends AbstractProvider
         try {
             $this->client->setApiKey($apiKey);
             $weather = $this->client->getWeather($city, $unit, $language);
+
             $this->detailedLogger->debug(self::FULL_OBJECT_MESSAGE);
             $this->detailedLogger->debug(serialize($weather));
 
+            if (!$weather->city->id) {
+                throw new ApiException(__($this->getExceptionMessageText(
+                        self::CITY_NOT_FOUND_EXCEPTION_MESSAGE))
+                );
+            }
+
             return $this->parse($weather);
         } catch (CmfCmfOpenWeatherMapException $e) {
-            $message = __CLASS__ . ': ' . $e->getMessage();
-            throw new ApiException(__($message));
+            throw new ApiException(__($this->getExceptionMessageText($e->getMessage())));
         }
     }
 
@@ -78,7 +84,7 @@ class OpenWeatherMap extends AbstractProvider
      *
      * @return mixed
      */
-    public function parse(CurrentWeather $currentWeather, $parseTo = 'string')
+    protected function parse(CurrentWeather $currentWeather, $parseTo = 'string')
     {
         $parsed = '';
         switch ($parseTo) {
@@ -92,5 +98,15 @@ class OpenWeatherMap extends AbstractProvider
         }
 
         return $parsed;
+    }
+
+    /**
+     * @param string $exceptionMessage
+     *
+     * @return string
+     */
+    protected function getExceptionMessageText(string $exceptionMessage)
+    {
+        return __CLASS__ . ': ' . $exceptionMessage;
     }
 }

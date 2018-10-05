@@ -1,6 +1,6 @@
 <?php
- /**
- * @package  Test\Weather 
+/**
+ * @package  Test\Weather
  * @author Mateusz
  */
 
@@ -12,6 +12,7 @@ namespace Test\Weather\Api;
 interface ProviderInterface
 {
     const MODULE_NOT_ENABLED_EXCEPTION_MESSAGE = 'Weather module is disabled';
+    const CITY_NOT_FOUND_EXCEPTION_MESSAGE     = 'City not found';
 
     /**
      * @param string $city
