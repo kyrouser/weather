@@ -15,6 +15,8 @@ class Config extends AbstractHelper
 {
     const WEATHER_GENERAL_ENABLE            = 'weather/general/enable';
     const WEATHER_GENERAL_CRON_ENABLE       = 'weather/general/cron_enable';
+    const WEATHER_GENERAL_LOGS              = 'weather/general/logs';
+    const WEATHER_GENERAL_LOGS_DETAILED     = 'weather/general/logs_detailed';
     const WEATHER_API_PROVIDER              = 'weather/api/provider';
     const WEATHER_API_CITY                  = 'weather/api/city';
     const WEATHER_OPEN_WEATHER_MAP_UNIT     = 'weather/open_weather_map/unit';
@@ -35,6 +37,22 @@ class Config extends AbstractHelper
     public function isWeatherCronEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(self::WEATHER_GENERAL_CRON_ENABLE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLogsEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(self::WEATHER_GENERAL_LOGS);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLogsDetailedEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(self::WEATHER_GENERAL_LOGS_DETAILED);
     }
 
     /**

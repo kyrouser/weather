@@ -20,6 +20,16 @@
                     <label>Enable Cron</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="logs" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Logs are available in var/log/test-weather.log</comment>
+                </field>
+                <field id="logs_detailed" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Detailed Logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Detailed logs are available in var/log/test-weather-detailed.log</comment>
+                </field>
             </group>
             <group id="api" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>API Settings</label>
@@ -40,7 +50,7 @@
                     <comment>Insert API Key here</comment>
                 </field>
                 <field id="unit" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Provider</label>
+                    <label>Unit type</label>
                     <source_model>Test\Weather\Model\Source\Unit</source_model>
                     <comment>Choose unit type to use by the OWM api</comment>
                 </field>

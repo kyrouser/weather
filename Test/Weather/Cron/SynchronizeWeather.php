@@ -11,12 +11,18 @@ use Test\Weather\Api\Data\WeatherInterfaceFactory;
 use Test\Weather\Helper\Config;
 use Test\Weather\Model\Api\Connector;
 use Test\Weather\Api\WeatherRepositoryInterface;
+use Test\Weather\Logger\Base\Logger;
+use Test\Weather\Logger\Detailed\Logger as DetailedLogger;
 
 /**
  * Class SynchronizeWeather
  */
 class SynchronizeWeather
 {
+    const CRON_START = 'start weather cron';
+    const CRON_END   = 'end weather cron';
+    const CRON_ERROR = 'Error occured: ';
+
     /** @var Config */
     protected $config;
 
@@ -29,6 +35,12 @@ class SynchronizeWeather
     /** @var WeatherInterfaceFactory */
     protected $weatherFactory;
 
+    /** @var Logger */
+    protected $logger;
+
+    /** @var DetailedLogger */
+    protected $detailedLogger;
+
     /**
      * SynchronizeWeather constructor.
      *
@@ -36,17 +48,23 @@ class SynchronizeWeather
      * @param Connector                  $connector
      * @param WeatherRepositoryInterface $weatherRepository
      * @param WeatherInterfaceFactory    $weatherFactory
+     * @param Logger                     $logger
+     * @param DetailedLogger             $detailedLogger
      */
     public function __construct(
         Config $config,
         Connector $connector,
         WeatherRepositoryInterface $weatherRepository,
-        WeatherInterfaceFactory $weatherFactory
+        WeatherInterfaceFactory $weatherFactory,
+        Logger $logger,
+        DetailedLogger $detailedLogger
     ) {
         $this->config            = $config;
         $this->connector         = $connector;
         $this->weatherRepository = $weatherRepository;
         $this->weatherFactory    = $weatherFactory;
+        $this->logger            = $logger;
+        $this->detailedLogger    = $detailedLogger;
     }
 
     public function synchronize()
@@ -54,13 +72,20 @@ class SynchronizeWeather
         if (!$this->config->isWeatherModuleEnabled() || !$this->config->isWeatherCronEnabled()) {
             return;
         }
-        $city    = $this->config->getCity();
-        $weather = $this->connector->getWeather($city);
+        $this->detailedLogger->info(self::CRON_START);
+        try {
+            $city    = $this->config->getCity();
+            $weather = $this->connector->getWeather($city);
 
-        /** @var \Test\Weather\Api\Data\WeatherInterface $weatherModel */
-        $weatherModel = $this->weatherFactory->create();
-        $weatherModel->setWeather($weather);
+            /** @var \Test\Weather\Api\Data\WeatherInterface $weatherModel */
+            $weatherModel = $this->weatherFactory->create();
+            $weatherModel->setWeather($weather);
 
-        $this->weatherRepository->save($weatherModel);
+            $this->weatherRepository->save($weatherModel);
+        } catch (\Exception $e) {
+            $this->detailedLogger->info(self::CRON_ERROR . $e->getMessage());
+            $this->logger->error($e->getMessage());
+        }
+        $this->detailedLogger->info(self::CRON_END);
     }
 }

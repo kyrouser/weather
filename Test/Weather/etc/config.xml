@@ -6,6 +6,8 @@
             <general>
                 <enable>1</enable>
                 <cron_enable>1</cron_enable>
+                <logs>1</logs>
+                <logs_detailed>0</logs_detailed>
             </general>
             <api>
                 <provider>open_weather_map</provider>
